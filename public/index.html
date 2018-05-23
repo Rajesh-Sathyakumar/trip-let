@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Trip-let</title>
+    <meta name="personal-manager" content="">
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <link rel="manifest" href="manifest.json"/>
+
+    <link rel="icon" href="content/images/favicon.png">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="./content/mdb.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="./content/styles.css" />
+
+</head>
+
+<body>
+
+    <header>
+        <!--Navbar-->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+            <div class="container-fluid">
+
+                <!-- Brand -->
+                <a class="navbar-brand waves-effect" href="#">
+                    <strong class="blue-text">Trip-let</strong>
+                </a>
+
+                <!-- Collapse -->
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Links -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                    <!-- Left -->
+                    <ul class="navbar-nav mr-auto">
+
+                    </ul>
+
+                    <!-- Right -->
+
+                    <ul class="navbar-nav nav-flex-icons">
+
+                        <li class="nav-item dropdown min-wd-150">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user fa-lg blue-text"></i> &nbsp; Hi Machi ! &nbsp;
+                            </a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                <form action="#" method="post" id="logOutForm">
+                                    <a class="dropdown-item" href="javascript:document.getElementById('logOutForm').submit() ">Log Off</a>
+                                </form>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+        <!--/.Navbar-->
+    </header>
+    <main>
+        <div class="main-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <!--Main column-->
+                    <div class="col-lg-10 col-md-12">
+
+                        <!--Section: Doc content-->
+                        <section class="documentation">
+                            <section id="introduction" class="mt-6">
+                                <div class="container">
+                                    <h1 class="main-title">Trip Timeline</h1>
+                                </div>
+
+                            </section>
+                            <section>
+                                <div class="container">
+                                    <div class="row mt-5">
+                                        <div class="col-md-12">
+
+                                            <!-- Timeline Wrapper -->
+                                            <ul class="stepper stepper-vertical timeline-images pl-0" 
+                                            id="tripLocations">
+
+                                            </ul>
+                                            <!-- Timeline Wrapper -->
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Timeline -->
+
+                            </section>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+    <script type="text/javascript" src="data/coorg.js"></script>
+    <script type="text/javascript">
+        Handlebars.registerHelper('invert',function(data){
+            if(data%2 === 1)
+                return "timeline-inverted";
+            else return "";
+        });
+
+        Handlebars.registerHelper('addOne',function(data){
+            return data + 1;
+        });
+    </script>
+
+    <script type="text/x-handlebars-template" id="tripLocationsTemplate">
+        {{#each this}}
+        <li class="{{invert @index}}">
+                <!--Section Title -->
+                <a href="#">
+                    <span class="circle cyan lighten-1">{{addOne @index}}</span>
+                </a>
+
+                <!-- Section Description -->
+                <div class="step-content z-depth-1 ml-xl-0 p-0 hoverable">
+                    <h4 class="font-weight-bold p-4 mb-0">{{location}}</h4>
+                    <p class="text-muted px-4 mb-0">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp; {{tripTime}}</p>
+                    <p class="mb-0 p-4">{{description}}</p>
+                    <p class="mb-0 mt-0 px-4 blue-text">
+                            <i class="fa fa-hourglass-start" aria-hidden="true"></i> &nbsp; <b>OPEN HOURS: {{openHours}}</b>     
+                    </p>
+                    <p class="mb-0 mt-0 p-4 green-text">
+                            <i class="fa fa-info-circle" aria-hidden="true"></i> &nbsp;     
+                            <b>VISITORS USUALLY STAY HERE FOR {{visitorStayTime}} HOURS</b>     
+                    </p>
+                </div>
+            </li>
+        {{/each}}
+    </script>
+
+    <script type="text/javascript" src="scripts/script.js"></script>
+</body>
+
+</html>
