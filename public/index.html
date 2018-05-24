@@ -7,7 +7,7 @@
     <title>Trip-let</title>
     <meta name="personal-manager" content="">
     <meta name="viewport" content="width=device-width, user-scalable=no" />
-    <link rel="manifest" href="manifest.json"/>
+    <link rel="manifest" href="manifest.json" />
 
     <link rel="icon" href="content/images/favicon.png">
 
@@ -91,8 +91,7 @@
                                         <div class="col-md-12">
 
                                             <!-- Timeline Wrapper -->
-                                            <ul class="stepper stepper-vertical timeline-images pl-0" 
-                                            id="tripLocations">
+                                            <ul class="stepper stepper-vertical timeline-images pl-0" id="tripLocations">
 
                                             </ul>
                                             <!-- Timeline Wrapper -->
@@ -114,19 +113,19 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
     <script type="text/javascript" src="data/coorg.js"></script>
     <script type="text/javascript">
-        Handlebars.registerHelper('invert',function(data){
-            if(data%2 === 1)
+        Handlebars.registerHelper('invert', function (data) {
+            if (data % 2 === 1)
                 return "timeline-inverted";
             else return "";
         });
 
-        Handlebars.registerHelper('addOne',function(data){
+        Handlebars.registerHelper('addOne', function (data) {
             return data + 1;
         });
 
-         Handlebars.registerHelper('adjustSize',function(data){
-            if(data === undefined || data ===null)
-            return "";
+        Handlebars.registerHelper('adjustSize', function (data) {
+            if (data === undefined || data === null)
+                return "";
             else return "x";
         });
     </script>
@@ -141,21 +140,53 @@
 
                 <!-- Section Description -->
                 <div class="step-content z-depth-1 ml-xl-0 p-0 hoverable">
-                    <h4 class="font-weight-bold p-4 mb-0">{{location}}</h4>
-                    <p class="text-muted px-4 mb-0">
-                        <i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp; {{tripTime}}</p>
-                    <p class="mb-0 p-4">{{description}}</p>
-                    {{#if openHours includeZero=true}}
-                    <p class="mb-0 mt-0 p{{{adjustSize visitorStayTime}}}-4 blue-text">
-                            <i class="fa fa-hourglass-start" aria-hidden="true"></i> &nbsp; <b>OPEN HOURS: {{openHours}}</b>     
-                    </p>
-                    {{/if}}
-                    {{#if visitorStayTime includeZero=true}}
-                    <p class="mb-0 mt-0 p-4 green-text">
-                            <i class="fa fa-info-circle" aria-hidden="true"></i> &nbsp;     
-                            <b>VISITORS USUALLY STAY HERE FOR {{visitorStayTime}} MINUTES</b>     
-                    </p>
-                    {{/if}}
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                            <h4 class="font-weight-bold p-4 mb-0">{{location}}</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                        <div class="col-md-12">
+                                                <p class="text-muted px-4 mb-0">
+                                                        <i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp; {{tripTime}}</p>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-2">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-lg-12 p-4 mb-0">
+                                                <img src="https://developer.accuweather.com/sites/default/files/05-s.png" width="75px" height="45px" />
+                                                <p>{{{Temperature}}} &nbsp; | &nbsp; {{{Weather}}} </p>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                    <p class="mb-0 p-4">{{description}}</p>
+                                    {{#if openHours includeZero=true}}
+                                        <p class="mb-0 mt-0 p{{{adjustSize visitorStayTime}}}-4 blue-text">
+                                            <i class="fa fa-hourglass-start" aria-hidden="true"></i>
+                                            &nbsp; <b>OPEN HOURS: {{openHours}}</b>     
+                                        </p>
+                                    {{/if}}
+                                    {{#if visitorStayTime includeZero=true}}
+                                        <p class="mb-0 mt-0 p-4 green-text">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i> &nbsp;     
+                                        <b>VISITORS USUALLY STAY HERE FOR {{visitorStayTime}} MINUTES</b>     
+                                        </p>
+                                    {{/if}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </li>
         {{/each}}
