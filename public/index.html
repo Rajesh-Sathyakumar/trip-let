@@ -7,6 +7,7 @@
     <title>Trip-let</title>
     <meta name="personal-manager" content="">
     <meta name="viewport" content="width=device-width, user-scalable=no" />
+
     <link rel="manifest" href="manifest.json"/>
 
     <link rel="icon" href="content/images/favicon.png">
@@ -113,6 +114,43 @@
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
     <script type="text/javascript" src="data/coorg.js"></script>
+<!-- 
+    <script type="text/javascript">
+        var rad = function(x) {
+  return x * Math.PI / 180;
+};
+
+var getDistance = function(p1, p2) {
+  var R = 6378137; // Earth’s mean radius in meter
+  var dLat = rad(p2.lat - p1.lat);
+  var dLong = rad(p2.lng - p1.lng);
+  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(rad(p1.lat)) * Math.cos(rad(p2.lat)) *
+    Math.sin(dLong / 2) * Math.sin(dLong / 2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  var d = R * c;
+  return (parseFloat(d)/1000.0).toFixed(2); // returns the distance in meter
+};
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+}
+var currPos = {};
+
+function getCurrPosition(position) {
+  var lat = position.coords.latitude;
+  var lng = position.coords.longitude;
+	currPos.lat = lat;
+	currPos.lng = lng;
+};
+
+navigator.geolocation.getCurrentPosition(getCurrPosition);
+
+    </script> -->
     <script type="text/javascript">
         Handlebars.registerHelper('invert',function(data){
             if(data%2 === 1)
@@ -129,8 +167,11 @@
             return "";
             else return "x";
         });
-    </script>
 
+        // Handlebars.registerHelper('calcDist',function(lat,long){
+        //     return getDistance(currPos,{lat: lat,  lng: long});
+        // });
+    </script>
     <script type="text/x-handlebars-template" id="tripLocationsTemplate">
         {{#each this}}
         <li class="{{invert @index}}">
@@ -144,6 +185,7 @@
                     <h4 class="font-weight-bold p-4 mb-0">{{location}}</h4>
                     <p class="text-muted px-4 mb-0">
                         <i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp; {{tripTime}}</p>
+                        
                     <p class="mb-0 p-4">{{description}}</p>
                     {{#if openHours includeZero=true}}
                     <p class="mb-0 mt-0 p{{{adjustSize visitorStayTime}}}-4 blue-text">
@@ -156,11 +198,19 @@
                             <b>VISITORS USUALLY STAY HERE FOR {{visitorStayTime}} MINUTES</b>     
                     </p>
                     {{/if}}
+                    {{#if nextLocationTime}}
+                    <p class="mb-0 mt-0 px-4 pb-4 pt-0  red-text">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp;     
+                        <b>NEXT LOCATION: &nbsp; {{nextLocationTime}} </b>     
+                    </p>
+                    {{/if}}
                 </div>
             </li>
         {{/each}}
     </script>
 
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-messaging.js"></script>
     <script type="text/javascript" src="scripts/script.js"></script>
 </body>
 

@@ -46,3 +46,27 @@ async function networkFirst(request) {
     return cachedResponse || await caches.match('./fallback.json');
   }
 }
+
+self.addEventListener('push', function(event) {
+  event.waitUntil(
+    self.registration.showNotification('Got Push?', {
+      body: 'Push Message received'
+   }));
+});
+
+/* FIREBASE */
+
+importScripts('https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/5.0.4/firebase-messaging.js');
+
+var config = {
+	apiKey: "AIzaSyDoHDnSyMjdyjwkjzLBZv6BMjny-Z9Pyfo",
+	authDomain: "trip-let.firebaseapp.com",
+	databaseURL: "https://trip-let.firebaseio.com",
+	projectId: "trip-let",
+	storageBucket: "trip-let.appspot.com",
+	messagingSenderId: "459259354047"
+};
+firebase.initializeApp(config);
+
+const messaging = firebase.messaging();
